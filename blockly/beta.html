@@ -1,7 +1,7 @@
 <script src="https://unpkg.com/blockly/blockly.min.js"></script>
 <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
 <button id="myButton" onclick="run()">GO</button>
-<div id="console"></div>
+  <div id="console"></div>
 <style>/* Button */
 /* Button */
 #myButton{
@@ -15,6 +15,16 @@
  color:rgba(0,0,0,0);
  background-color:rgba(240,240,240,0);
  background-size:auto;
+}
+/* Console */
+#console{
+ position:relative;
+ left:362px;
+ transform: translatex(256px) translatey(-254px);
+ top:-279px;
+ bottom:auto !important;
+ max-height: 500px; /* set a fixed height */
+  overflow-y: auto; /* add a vertical scroll bar when necessary */
 }
 
   </style>
@@ -185,6 +195,16 @@ Blockly.defineBlocksWithJsonArray([{
   "helpUrl": ""
 },
 {
+  "type": "clear",
+  "message0": "Clear log",
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": "#5abb37",
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
   "type": "go_click",
   "message0": "%1",
   "args0": [
@@ -264,15 +284,11 @@ const toolbox = {
         },
         {
           "kind": "block",
-          "type": "prompt", 
-        },
-        {
-          "kind": "block",
-          "type": "confirm", 
-        },
-        {
-          "kind": "block",
           "type": "log", 
+        },
+        {
+          "kind": "block",
+          "type": "clear", 
         },
       ]
     },
@@ -323,6 +339,33 @@ const toolbox = {
 }
   ]
 }
+// Check if URL ends with "?beta"
+if (window.location.href.endsWith('?beta')) {
+  // Show beta category
+  toolbox.contents.push({
+    "kind": "category",
+    "name": "Beta",
+    "contents": [
+    {
+          "kind": "block",
+          "type": "prompt", 
+        },
+        {
+          "kind": "block",
+          "type": "confirm", 
+        },
+    ]
+  });
+} else {
+  // Hide beta category
+  for (var i = 0; i < toolbox.contents.length; i++) {
+    var category = toolbox.contents[i];
+    if (category.name === "Beta") {
+      toolbox.contents.splice(i, 1);
+      break;
+    }
+  }
+}
 Blockly.JavaScript['alert'] = function(block) {
   var text_name = block.getFieldValue('NAME');
   var code = '...;\n';
@@ -345,6 +388,11 @@ Blockly.JavaScript['log'] = function(block) {
   var text_name = block.getFieldValue('NAME');
   var code = '...;\n';
   logToConsole(text_name);
+  return code;
+};
+Blockly.JavaScript['clear'] = function(block) {
+  var code = '...;\n';
+  clearLog();
   return code;
 };
 Blockly.JavaScript['go_click'] = function(block) {
