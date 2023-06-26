@@ -1,6 +1,13 @@
+<title>Supuraitoresu Blockly</title>
+    <meta content="Supuraitoresu Blockly" property="og:title" />
+    <meta content="Supuraitoresu Blockly" property="og:description" />
+    <meta content="https://kylekart.github.io/supuraitoresu/blockly/" property="og:url" />
+    <meta content="https://embed.com/embedimage.png" property="og:image" />
+    <meta content="#43B581" data-react-helmet="true" name="theme-color" />
+
 <script src="https://unpkg.com/blockly/blockly.min.js"></script>
 <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
-<button id="myButton" onclick="run()">GO</button>
+<button id="myButton" onclick="run()"></button>
   <div id="console"></div>
 <style>/* Button */
 /* Button */
@@ -323,20 +330,6 @@ const toolbox = {
     }
       ]
     },
-    {
-  "kind": "category",
-  "name": "Testing",
-  "contents": [
-    {
-      "kind": "block",
-      "type": "lolz"
-    },
-    {
-      "kind": "block",
-      "type": "blok_normal"
-    }
-  ]
-}
   ]
 }
 Blockly.JavaScript['alert'] = function(block) {
@@ -411,7 +404,21 @@ block.nextConnection.connect(two.previousConnection);
           "type": "confirm", 
         },
     ]
-  });
+  },
+  {
+  "kind": "category",
+  "name": "Testing",
+  "contents": [
+    {
+      "kind": "block",
+      "type": "lolz"
+    },
+    {
+      "kind": "block",
+      "type": "blok_normal"
+    }
+  ]
+});
 } else {
   // Hide beta category
   for (var i = 0; i < toolbox.contents.length; i++) {
