@@ -36,6 +36,7 @@ function clearLog() {
     const consoleElem = document.getElementById('console');
     consoleElem.innerHTML = '';
 }
+logToConsole("hello world");
 
 Blockly.defineBlocksWithJsonArray([{
   "type": "string_length",
@@ -369,7 +370,7 @@ Blockly.JavaScript['ifelse'] = function(block) {
 const workspace = Blockly.inject('blocklyDiv', {toolbox: toolbox}, {renderer: 'zelos'});
 var block = workspace.newBlock('go_click');
 var two = workspace.newBlock('log');
-block.nextConnection.connect(two.outputConnection);
+block.nextConnection.connect(two.previousConnection);
   workspace.getFlyout().hide();
   block.initSvg()
   two.initSvg()
