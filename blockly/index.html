@@ -104,7 +104,41 @@ Blockly.defineBlocksWithJsonArray([{
   {
       "type": "field_input",
       "name": "NAME",
-      "text": "default"
+      "text": "Alert!"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": "#5abb37",
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "prompt",
+  "message0": "Prompt %1",
+  "args0": [
+  {
+      "type": "field_input",
+      "name": "NAME",
+      "text": "Prompt?"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": "#5abb37",
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "confirm",
+  "message0": "Confirm %1",
+  "args0": [
+  {
+      "type": "field_input",
+      "name": "NAME",
+      "text": "Confirm?"
     }
   ],
   "inputsInline": true,
@@ -192,6 +226,14 @@ const toolbox = {
           "kind": "block",
           "type": "alert", 
         },
+        {
+          "kind": "block",
+          "type": "prompt", 
+        },
+        {
+          "kind": "block",
+          "type": "confirm", 
+        },
       ]
     },
     {
@@ -245,6 +287,18 @@ Blockly.JavaScript['alert'] = function(block) {
   var text_name = block.getFieldValue('NAME');
   var code = '...;\n';
   alert(text_name);
+  return code;
+};
+Blockly.JavaScript['prompt'] = function(block) {
+  var text_name = block.getFieldValue('NAME');
+  var code = '...;\n';
+  prompt(text_name);
+  return code;
+};
+Blockly.JavaScript['confirm'] = function(block) {
+  var text_name = block.getFieldValue('NAME');
+  var code = '...;\n';
+  confirm(text_name);
   return code;
 };
 Blockly.JavaScript['go_click'] = function(block) {
