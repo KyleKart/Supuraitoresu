@@ -1,0 +1,247 @@
+<script src="https://unpkg.com/blockly/blockly.min.js"></script>
+<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+<button id="myButton" onclick="run()">GO</button>
+
+<script>
+
+Blockly.defineBlocksWithJsonArray([{
+  "type": "string_length",
+  "message0": 'length of %1',
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "VALUE",
+      "check": "String"
+    }
+  ],
+  "output": "Number",
+  "colour": 160,
+  "tooltip": "Returns number of letters in the provided text.",
+  "helpUrl": "http://www.w3schools.com/jsref/jsref_length_string.asp"
+},
+{
+  "type": "lolz",
+  "message0": "%1",
+  "args0": [
+    {
+      "type": "field_checkbox",
+      "name": "NAME",
+      "checked": true
+    }
+  ],
+  "colour": 210,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "blok_normal",
+  "message0": "%1 %2 %3 %4 %5",
+  "args0": [
+    {
+      "type": "field_label_serializable",
+      "name": "01",
+      "text": ""
+    },
+    {
+      "type": "field_input",
+      "name": "02",
+      "text": "default"
+    },
+    {
+      "type": "field_angle",
+      "name": "03",
+      "angle": 90
+    },
+    {
+      "type": "field_dropdown",
+      "name": "04",
+      "options": [
+        [
+          "option1",
+          "OPTIONNAME"
+        ],
+        [
+          "option2",
+          "OPTIONNAME2"
+        ],
+        [
+          "option3",
+          "OPTIONNAME3"
+        ]
+      ]
+    },
+    {
+      "type": "field_checkbox",
+      "name": "05",
+      "checked": true
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "alert",
+  "message0": "Alert %1",
+  "args0": [
+  {
+      "type": "field_input",
+      "name": "NAME",
+      "text": "default"
+    }
+  ],
+  "inputsInline": true,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": "#5abb37",
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "go_click",
+  "message0": "When GO clicked",
+  "inputsInline": true,
+  "nextStatement": null,
+  "colour": "#ee7d16",
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "ifelse",
+  "message0": "if %1 do %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "iffy"
+    },
+    {
+      "type": "input_statement",
+      "name": "elsey"
+    }
+  ],
+  "inputsInline": false,
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": "#cc5b22",
+  "tooltip": "",
+  "helpUrl": ""
+}]);
+
+const toolbox = {
+  "kind": "categoryToolbox",
+  "contents": [
+    {
+  "kind": "category",
+  "name": "Events",
+  'colour':'#ee7d16',
+
+  "contents": [
+    {
+      "kind": "block",
+      "type": "go_click"
+    }
+  ]
+},
+    {
+      "kind": "category",
+      "name": "Control",
+      'colour':'#cc5b22',
+      "contents": [
+        {
+          "kind": "block",
+          "type": "controls_if"
+        },
+    {
+      "kind": "block",
+      "type": "ifelse"
+    }
+      ]
+    },
+    {
+      "kind": "category",
+      "name": "Output",
+      'colour':'#5abb37',
+            "contents": [
+        {
+          "kind": "block",
+          "type": "alert", 
+        },
+      ]
+    },
+    {
+      "kind": "category",
+      "name": "Operator",
+      'colour': '#4a6cd4',
+      "contents": [
+        {
+          "kind": "block",
+          "type": "logic_compare"
+        },
+        {
+          "kind": "block",
+          "type": "logic_operation"
+        },
+        {
+          "kind": "block",
+          "type": "logic_boolean"
+        },
+        {
+          "kind": "block",
+          "type": "text"
+        },
+        {
+      "kind": "block",
+      "type": "math_number"
+    },
+    {
+      "kind": "block",
+      "type": "string_length"
+    }
+      ]
+    },
+    {
+  "kind": "category",
+  "name": "Testing",
+  "contents": [
+    {
+      "kind": "block",
+      "type": "lolz"
+    },
+    {
+      "kind": "block",
+      "type": "blok_normal"
+    }
+  ]
+}
+  ]
+}
+Blockly.JavaScript['alert'] = function(block) {
+  var text_name = block.getFieldValue('NAME');
+  var code = '...;\n';
+  alert(text_name);
+  return code;
+};
+Blockly.JavaScript['go_click'] = function(block) {
+  var nextBlock = block.getNextBlock();
+  while (nextBlock) {
+    var code = Blockly.JavaScript[nextBlock.type](nextBlock);
+    nextBlock = nextBlock.getNextBlock();
+  }
+};
+Blockly.JavaScript['ifelse'] = function(block) {
+  var value_iffy = Blockly.JavaScript.valueToCode(block, 'iffy', Blockly.JavaScript.ORDER_NONE);
+  console.log(value_iffy)
+  var statements_elsey = Blockly.JavaScript.statementToCode(block, 'elsey');
+  console.log(statements_elsey)
+  var code = 'if (' + value_iffy + ') {\n' + statements_elsey + '}';
+  console.log(code)
+  return code;
+};
+  var run = function(){
+    Blockly.JavaScript.addReservedWords('code');
+    var code = Blockly.JavaScript.workspaceToCode(workspace);
+}
+const workspace = Blockly.inject('blocklyDiv', {toolbox: toolbox}, {renderer: 'zelos'});
+ </script>
