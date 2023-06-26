@@ -389,8 +389,15 @@ Blockly.JavaScript['ifelse'] = function(block) {
     var code = Blockly.JavaScript.workspaceToCode(workspace);
 }
 const workspace = Blockly.inject('blocklyDiv', {toolbox: toolbox}, {renderer: 'zelos'});
-  / Check if URL ends with "?beta"
+  // Check if URL ends with "?beta"
 if (window.location.href.endsWith('?beta')) {
+  var block = workspace.newBlock('go_click');
+var two = workspace.newBlock('log');
+block.nextConnection.connect(two.previousConnection);
+  workspace.getFlyout().hide();
+  block.initSvg()
+  two.initSvg()
+  workspace.render()
   toolbox.contents.push({
     "kind": "category",
     "name": "Beta",
