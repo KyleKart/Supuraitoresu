@@ -367,4 +367,11 @@ Blockly.JavaScript['ifelse'] = function(block) {
     var code = Blockly.JavaScript.workspaceToCode(workspace);
 }
 const workspace = Blockly.inject('blocklyDiv', {toolbox: toolbox}, {renderer: 'zelos'});
+var block = workspace.newBlock('go_click');
+var two = workspace.newBlock('log');
+block.nextConnection.connect(two.outputConnection);
+  workspace.getFlyout().hide();
+  block.initSvg()
+  two.initSvg()
+  workspace.render()
  </script>
