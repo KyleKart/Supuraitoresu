@@ -1,6 +1,6 @@
 <title>Supuraitoresu Blockly</title>
     <meta content="Supuraitoresu Blockly" property="og:title" />
-    <meta content="Supuraitoresu Blockly is a custom Blockly workspace inspired by my Supuraitoresu Scratch mod. Add ?beta to the URL to gain access to special beta and testing blocks!" property="og:description" />
+    <meta content="Supuraitoresu Blockly is my custom Blockly editor/workspace inspired by my very own Supuraitoresu Scratch mod. Supuraitoresu is an unfinished Scratch mod with no stage!" property="og:description" />
     <meta content="https://kylekart.github.io/supuraitoresu/blockly/" property="og:url" />
     <meta content="https://embed.com/embedimage.png" property="og:image" />
     <meta content="#a64dff" data-react-helmet="true" name="theme-color" />
@@ -33,7 +33,6 @@
  max-height: 500px; /* set a fixed height */
   overflow-y: auto; /* add a vertical scroll bar when necessary */
 }
-
   </style>
 <script>
 // Get the console element
@@ -54,7 +53,6 @@ function clearLog() {
     consoleElem.innerHTML = '';
 }
 logToConsole("hello world");
-
 Blockly.defineBlocksWithJsonArray([{
   "type": "string_length",
   "message0": 'length of %1',
@@ -259,6 +257,14 @@ const toolbox = {
   'colour':'#ee7d16',
 
   "contents": [
+  {
+      "kind": "label",
+      "text": "Blocks for triggering events.",
+    },
+    {
+      "kind": "label",
+      "text": "Like in Scratch.",
+    },
     {
       "kind": "block",
       "type": "go_click"
@@ -270,6 +276,14 @@ const toolbox = {
       "name": "Control",
       'colour':'#cc5b22',
       "contents": [
+      {
+      "kind": "label",
+      "text": "Blocks for program flow control.",
+    },
+    {
+      "kind": "label",
+      "text": "Like in Scratch.",
+    },
         {
           "kind": "block",
           "type": "controls_if"
@@ -281,6 +295,14 @@ const toolbox = {
       "name": "Output",
       'colour':'#5abb37',
             "contents": [
+            {
+      "kind": "label",
+      "text": "Blocks for outputting data like text.",
+    },
+    {
+      "kind": "label",
+      "text": "Not in Scratch.",
+    },
         {
           "kind": "block",
           "type": "alert", 
@@ -300,6 +322,14 @@ const toolbox = {
       "name": "Operator",
       'colour': '#4a6cd4',
       "contents": [
+      {
+      "kind": "label",
+      "text": "Blocks for Math and logic.",
+    },
+    {
+      "kind": "label",
+      "text": "Like in Scratch.",
+    },
         {
           "kind": "block",
           "type": "logic_compare"
@@ -326,6 +356,40 @@ const toolbox = {
     }
       ]
     },
+    {
+    "kind": "category",
+    "name": "TestZone",
+    "contents": [
+    {
+      "kind": "label",
+      "text": "Unfinished or Experminetal Blocks",
+    },
+    {
+      "kind": "label",
+      "text": "Use at your own risk!"
+    },
+    {
+          "kind": "block",
+          "type": "prompt", 
+        },
+        {
+          "kind": "block",
+          "type": "confirm", 
+        },
+        {
+      "kind": "block",
+      "type": "ifelse"
+    },
+    {
+      "kind": "block",
+      "type": "lolz"
+    },
+    {
+      "kind": "block",
+      "type": "blok_normal"
+    }
+    ]
+  },
   ]
 }
 Blockly.JavaScript['alert'] = function(block) {
@@ -377,56 +441,10 @@ Blockly.JavaScript['ifelse'] = function(block) {
     Blockly.JavaScript.addReservedWords('code');
     var code = Blockly.JavaScript.workspaceToCode(workspace);
 }
+
 const workspace = Blockly.inject('blocklyDiv', {toolbox: toolbox}, {renderer: 'zelos'});
-  // Check if URL ends with "?beta"
-if (window.location.href.endsWith('?beta')) {
-  var block = workspace.newBlock('go_click');
-var two = workspace.newBlock('log');
-block.nextConnection.connect(two.previousConnection);
-  workspace.getFlyout().hide();
-  block.initSvg()
-  two.initSvg()
-  workspace.render()
-  toolbox.contents.push({
-    "kind": "category",
-    "name": "Beta",
-    "contents": [
-    {
-          "kind": "block",
-          "type": "prompt", 
-        },
-        {
-          "kind": "block",
-          "type": "confirm", 
-        },
-        {
-      "kind": "block",
-      "type": "ifelse"
-    }
-    ]
-  },
-  {
-  "kind": "category",
-  "name": "Testing",
-  "contents": [
-    {
-      "kind": "block",
-      "type": "lolz"
-    },
-    {
-      "kind": "block",
-      "type": "blok_normal"
-    }
-  ]
-});
-} else {
-  // Hide beta category
-  for (var i = 0; i < toolbox.contents.length; i++) {
-    var category = toolbox.contents[i];
-    if (category.name === "Beta") {
-      toolbox.contents.splice(i, 1);
-      break;
-    }
-  }
+var myCategory = workspace.getToolbox().getCategoryByName("TestZone");
+if (myCategory) {
+  myCategory.setDescription("This is my category description!");
 }
  </script>
